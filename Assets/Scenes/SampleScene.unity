@@ -392,7 +392,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &272409041
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -803,6 +803,7 @@ MonoBehaviour:
   totalEnemyCost: 4
   costIncrement: 1
   waveTimer: 7
+  powerUpFrecuency: 3
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
