@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyMelee : EnemyBase
+public class EnemyMelee : Enemy
 {
     private Transform player;
     private Vector3 cosmeticRotation = new Vector3 (0, 0, 180);

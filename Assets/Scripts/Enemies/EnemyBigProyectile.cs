@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyBigProyectile : EnemyBase
+public class EnemyBigProyectile : Enemy
 {
     [SerializeField] float movingTimer = 1f;
     Vector3 maxDirection = new Vector3(-1, 0.3f, 0).normalized;
@@ -25,7 +25,7 @@ public class EnemyBigProyectile : EnemyBase
     {
         float t = Random.Range(0f, 1f);
         Vector3 direction = Vector3.Lerp(maxDirection, minDirection, t);
-        BulletBase bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<BulletBase>();
+        Bullet bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Bullet>();
         bullet.direction = direction;
 
         shotCooldown = shootingPeriod;

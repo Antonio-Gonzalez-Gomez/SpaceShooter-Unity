@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyPlayerAim : EnemyBase
+public class EnemyPlayerAim : Enemy
 {
     private Transform player;
     override protected void Start()
@@ -12,7 +12,7 @@ public class EnemyPlayerAim : EnemyBase
 
     override protected void Shoot()
     {
-        BulletBase bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<BulletBase>();
+        Bullet bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Bullet>();
         bullet.direction = (player.position - transform.position).normalized;
 
         shotCooldown = shootingPeriod;

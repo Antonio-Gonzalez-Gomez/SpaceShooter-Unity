@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BulletBig : BulletBase
+public class BulletBig : Bullet
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {

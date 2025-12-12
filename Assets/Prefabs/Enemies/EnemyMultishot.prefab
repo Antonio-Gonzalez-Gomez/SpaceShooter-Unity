@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8051410820925852528}
   - component: {fileID: 1876764355255671481}
   m_Layer: 0
-  m_Name: EnemyVerticalMultishot
+  m_Name: EnemyMultishot
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

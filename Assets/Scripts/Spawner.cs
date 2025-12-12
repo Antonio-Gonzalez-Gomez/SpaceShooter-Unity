@@ -2,21 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] EnemyBase enemyPrefab;
+    [SerializeField] Enemy enemyPrefab;
     [SerializeField] public int enemyCost;
     [SerializeField] public MasterSpawner.SpawnLocation location;
 
+    private Vector3 defaultDirection;
+    private Quaternion defaultRotation;
+    private void Start()
+    {
+        defaultDirection = enemyPrefab.movementDirection;
+        defaultRotation = enemyPrefab.transform.rotation;
+    }
     public static float[] TimerEnemies(float total, int count)
     {
         float[] result = new float[count];
-        SplitRange(0f, total, 0, count, result);
+        BinarySplit(0f, total, 0, count, result);
+        if (count == 1)
+        {
+            result[0] = UnityEngine.Random.Range(0f, total);
+        }
         return result;
     }
 
-    private static int SplitRange(float start, float end, int index, int count, float[] arr)
+    private static int BinarySplit(float start, float end, int index, int count, float[] arr)
     {
         if (count == 1)
         {
@@ -28,8 +40,8 @@ public class Spawner : MonoBehaviour
         int leftCount = count / 2;
         int rightCount = count - leftCount;
 
-        index = SplitRange(start, split, index, leftCount, arr);
-        index = SplitRange(split, end, index, rightCount, arr);
+        index = BinarySplit(start, split, index, leftCount, arr);
+        index = BinarySplit(split, end, index, rightCount, arr);
         return index;
     }
 
@@ -38,22 +50,23 @@ public class Spawner : MonoBehaviour
         float[] timer = TimerEnemies(time, count);
         for (int i = 0; i < count; i++)
         {
-            if (count == 1)
-            {
-                timer[0] = UnityEngine.Random.Range(0f, time);
-            }
             yield return new WaitForSeconds(timer[i]);
             float t = UnityEngine.Random.Range(0f, 1f);
             Vector3 startPosition = Vector3.Lerp(lineStart, lineEnd, t);
-            EnemyBase enemy = Instantiate(enemyPrefab, startPosition, enemyPrefab.transform.rotation);
+            Enemy enemy = Instantiate(enemyPrefab, startPosition, enemyPrefab.transform.rotation);
             if (location == MasterSpawner.SpawnLocation.Top)
             {
-                enemy.movementDirection.y = -enemy.movementDirection.y;
-                enemy.transform.rotation *= Quaternion.Euler(0f, 0f, 180f);
-                location = MasterSpawner.SpawnLocation.Bottom;
+                enemy.movementDirection.y = -defaultDirection.y;
+                enemy.transform.rotation = defaultRotation * Quaternion.Euler(0f, 0f, 180f);
             }
-            if (location == MasterSpawner.SpawnLocation.Bottom)
-                location = MasterSpawner.SpawnLocation.Top;
+        }
+        if (location == MasterSpawner.SpawnLocation.Top)
+        {
+            location = MasterSpawner.SpawnLocation.Bottom;
+        }
+        else if (location == MasterSpawner.SpawnLocation.Bottom)
+        {
+            location = MasterSpawner.SpawnLocation.Top;
         }
     }
 }

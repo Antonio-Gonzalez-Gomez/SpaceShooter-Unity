@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] protected int lifePoints = 2;
     [Header("Movement")]
@@ -47,7 +47,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (collision.CompareTag("PlayerBullet"))
         {
-            BulletBase bullet = collision.gameObject.GetComponent<BulletBase>();
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             lifePoints -= bullet.damage;
             Destroy(bullet.gameObject);
             if (lifePoints <= 0)

@@ -12,9 +12,9 @@ public class PlayerSpaceShip : MonoBehaviour
     [SerializeField] float maxSpeed = 1f;
     [SerializeField] float acceleration = 2f;
     [Header("Shooting")]
-    [SerializeField] BulletBase lowDmgPrefab;
-    [SerializeField] BulletBase mediumDmgPrefab;
-    [SerializeField] BulletBase highDmgPrefab;
+    [SerializeField] Bullet lowDmgPrefab;
+    [SerializeField] Bullet mediumDmgPrefab;
+    [SerializeField] Bullet highDmgPrefab;
     [SerializeField] float shootingPeriod = 1f;
     [Header("Controls")]
     [SerializeField] InputActionReference move;
@@ -25,7 +25,7 @@ public class PlayerSpaceShip : MonoBehaviour
     [SerializeField] GameObject destroyEffect;
 
     private Rigidbody2D rb;
-    private BulletBase currentBullet;
+    private Bullet currentBullet;
     private AudioSource audioSource;
     public List<UpgradeType> remainingPowerUps;
     void Start()
@@ -71,7 +71,6 @@ public class PlayerSpaceShip : MonoBehaviour
         Vector2 targetVelocity = rawMove * maxSpeed;
         Vector2 force = (targetVelocity - rb.linearVelocity) * acceleration;
         rb.AddForce(force);
-        transform.rotation = Quaternion.identity;
     }
 
     private void OnDisable()

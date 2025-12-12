@@ -9,6 +9,7 @@ public class MasterSpawner : MonoBehaviour
     [SerializeField] int totalEnemyCost = 5;
     [SerializeField] int costIncrement = 1;
     [SerializeField] float waveTimer = 5f;
+    [SerializeField] int powerUpFrecuency = 3;
 
     public Dictionary<SpawnLocation, int> indexDict;
     public enum SpawnLocation
@@ -32,7 +33,7 @@ public class MasterSpawner : MonoBehaviour
         indexDict.Add(SpawnLocation.Top, 0);
         indexDict.Add(SpawnLocation.Bottom, 2);
         indexDict.Add(SpawnLocation.Right, 4);
-        initBordersAndSpawnLines();
+        InitBordersAndSpawnLines();
 
         for (int i = 0; i < spawnersCount; i++)
         {
@@ -54,7 +55,7 @@ public class MasterSpawner : MonoBehaviour
             StartCoroutine(spawner.SpawnEnemies(enemyCounts[i], waveTimer, spawnLines[lineIndex], spawnLines[lineIndex + 1]));
         }
         totalEnemyCost += costIncrement;
-        if (totalEnemyCost % 3 == 0)
+        if (totalEnemyCost % powerUpFrecuency == 0)
             powerupSpawner.SpawnPowerUp(spawnLines[4], spawnLines[5]);
     }
 
@@ -72,7 +73,7 @@ public class MasterSpawner : MonoBehaviour
         return result;
     }
 
-    void initBordersAndSpawnLines()
+    void InitBordersAndSpawnLines()
     {
         Transform topBorder = new GameObject().transform;
         Transform bottomBorder = new GameObject().transform;

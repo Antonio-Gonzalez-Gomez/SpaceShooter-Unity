@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class EnemyFastProyectile : EnemyBase
+public class EnemyFastProyectile : Enemy
 {
     override protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("PlayerBullet"))
         {
-            BulletBase bullet = collision.gameObject.GetComponent<BulletBase>();
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             lifePoints -= bullet.damage;
             Destroy(bullet.gameObject);
             if (lifePoints <= 0)

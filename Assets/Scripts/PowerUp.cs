@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PowerUp : EnemyBase
+public class PowerUp : Enemy
 {
     [SerializeField] public UpgradeType type;
 
